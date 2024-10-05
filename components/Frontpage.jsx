@@ -1,89 +1,97 @@
+// Frontpage.js
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, Image, ScrollView, TouchableOpacity } from 'react-native';
 import AntDesign from '@expo/vector-icons/AntDesign';
-import Feather from '@expo/vector-icons/Feather'; // Only import Feather once.
+import Feather from '@expo/vector-icons/Feather';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { useNavigation } from '@react-navigation/native'; // Import navigation hook
 
 export default function Frontpage() {
+  const navigation = useNavigation(); // Get navigation object
+
   return (
-    <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 80 }}>
-      {/* Header */}
-      <View style={styles.header}>
-        <Text style={styles.logoText}>Sport Shoes</Text>
-        <View style={styles.icons}>
-          {/* Icons for heart, cart, and profile */}
-          <TouchableOpacity>
-            <AntDesign name="heart" size={24} color="black" />
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <AntDesign name="shoppingcart" size={24} color="black" />
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Feather name="bell" size={24} color="black" />
+    <View style={styles.container}>
+      {/* Main Content Scrollable */}
+      <ScrollView contentContainerStyle={styles.contentContainer}>
+        {/* Header */}
+        <View style={styles.header}>
+          <Text style={styles.logoText}>Sport Shoes</Text>
+          <View style={styles.icons}>
+            {/* Navigate to Wishlist when heart is clicked */}
+            <TouchableOpacity onPress={() => navigation.navigate('Wishlist')}>
+              <AntDesign name="heart" size={24} color="black" />
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <AntDesign name="shoppingcart" size={24} color="black" />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('Notification')}>
+  <Feather name="bell" size={24} color="black" />
+</TouchableOpacity>
+
+          </View>
+        </View>
+
+        {/* Search bar */}
+        <View style={styles.searchContainer}>
+          <TextInput placeholder="Search items" style={styles.searchInput} />
+        </View>
+
+        {/* Wallet and Top-up section */}
+        <View style={styles.walletSection}>
+          <View style={styles.walletBox}>
+            <Text style={styles.walletText}>Wallet balance</Text>
+            <Text style={styles.balanceAmount}>Rp1.000.000</Text>
+          </View>
+          <TouchableOpacity style={styles.topUpButton}>
+            <Text style={styles.topUpText}>Top up</Text>
           </TouchableOpacity>
         </View>
-      </View>
 
-      {/* Search bar */}
-      <View style={styles.searchContainer}>
-        <TextInput placeholder="Search items" style={styles.searchInput} />
-      </View>
-
-      {/* Wallet and Top-up section */}
-      <View style={styles.walletSection}>
-        <View style={styles.walletBox}>
-          <Text style={styles.walletText}>Wallet balance</Text>
-          <Text style={styles.balanceAmount}>Rp1.000.000</Text>
+        {/* 15% Off Banner */}
+        <View style={styles.banner}>
+          <Text style={styles.bannerText}>15% OFF</Text>
+          <Text style={styles.bannerDescription}>All Items</Text>
         </View>
-        <TouchableOpacity style={styles.topUpButton}>
-          <Text style={styles.topUpText}>Top up</Text>
-        </TouchableOpacity>
-      </View>
 
-      {/* 15% Off Banner */}
-      <View style={styles.banner}>
-        <Text style={styles.bannerText}>15% OFF</Text>
-        <Text style={styles.bannerDescription}>All Items</Text>
-      </View>
+        {/* Shop by Category */}
+        <View style={styles.categorySection}>
+          <TouchableOpacity style={styles.categoryButton}>
+            <Text style={styles.categoryText}>FOOTWEAR</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.categoryButton}>
+            <Text style={styles.categoryText}>BAGS</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.categoryButton}>
+            <Text style={styles.categoryText}>APPAREL</Text>
+          </TouchableOpacity>
+        </View>
 
-      {/* Shop by Category */}
-      <View style={styles.categorySection}>
-        <TouchableOpacity style={styles.categoryButton}>
-          <Text style={styles.categoryText}>FOOTWEAR</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.categoryButton}>
-          <Text style={styles.categoryText}>BAGS</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.categoryButton}>
-          <Text style={styles.categoryText}>APPAREL</Text>
-        </TouchableOpacity>
-      </View>
+        {/* For You Section */}
+        <View style={styles.forYouSection}>
+          {/* First product */}
+          <TouchableOpacity style={styles.productCard}>
+            <Image source={require('../assets/img1.png')} style={styles.productImage} />
+            <Text style={styles.productName}>AIR LEGGING SPORT</Text>
+            <Text style={styles.productPrice}>Rp200.000</Text>
+          </TouchableOpacity>
 
-      {/* For You Section */}
-      <View style={styles.forYouSection}>
-        {/* First product */}
-        <TouchableOpacity style={styles.productCard}>
-          <Image source={require('../assets/img1.png')} style={styles.productImage} />
-          <Text style={styles.productName}>AIR LEGGING SPORT</Text>
-          <Text style={styles.productPrice}>Rp200.000</Text>
-        </TouchableOpacity>
+          {/* Second product */}
+          <TouchableOpacity style={styles.productCard}>
+            <Image source={require('../assets/img2.png')} style={styles.productImage} />
+            <Text style={styles.productName}>AERO-SHIFT AIR MAX</Text>
+            <Text style={styles.productPrice}>Rp450.000</Text>
+          </TouchableOpacity>
 
-        {/* Second product */}
-        <TouchableOpacity style={styles.productCard}>
-          <Image source={require('../assets/img2.png')} style={styles.productImage} />
-          <Text style={styles.productName}>AERO-SHIFT AIR MAX</Text>
-          <Text style={styles.productPrice}>Rp450.000</Text>
-        </TouchableOpacity>
+          {/* Third product */}
+          {/* <TouchableOpacity style={styles.productCard}>
+            <Image source={require('../assets/img3.png')} style={styles.productImage} />
+            <Text style={styles.productName}>AERO-SHIFT AIR MAX</Text>
+            <Text style={styles.productPrice}>Rp450.000</Text>
+          </TouchableOpacity> */}
+        </View>
+      </ScrollView>
 
-        {/* Third product */}
-        <TouchableOpacity style={styles.productCard}>
-          <Image source={require('../assets/img3.png')} style={styles.productImage} />
-          <Text style={styles.productName}>AERO-SHIFT AIR MAX</Text>
-          <Text style={styles.productPrice}>Rp450.000</Text>
-        </TouchableOpacity>
-      </View>
-
-      {/* Bottom Navigation */}
+      {/* Bottom Navigation (Sticky) */}
       <View style={styles.bottomNav}>
         {/* Home Icon */}
         <TouchableOpacity style={[styles.navItem, styles.active]}>
@@ -110,15 +118,17 @@ export default function Frontpage() {
           <AntDesign name="user" size={24} color="#ccc" />
         </TouchableOpacity>
       </View>
-    </ScrollView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flexGrow: 1,   // Allow ScrollView to grow and scroll properly
+    flex: 1,
     backgroundColor: '#fff',
-    paddingHorizontal: 10,
+  },
+  contentContainer: {
+    paddingBottom: 80,
   },
   header: {
     flexDirection: 'row',
@@ -210,16 +220,16 @@ const styles = StyleSheet.create({
   forYouSection: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    flexWrap: 'wrap',  // Allow items to wrap on smaller screens
+    flexWrap: 'wrap',
     marginVertical: 20,
   },
   productCard: {
-    width: '48%',                   // Two products in a row
+    width: '48%',
     backgroundColor: '#f5f5f5',
     borderRadius: 10,
     padding: 10,
     alignItems: 'center',
-    marginBottom: 20,               // Add some margin to bottom so items don't stick to each other
+    marginBottom: 20,
   },
   productImage: {
     width: '100%',
@@ -239,13 +249,17 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   bottomNav: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
     flexDirection: 'row',
     justifyContent: 'space-between',
     backgroundColor: '#fff',
-    paddingVertical: 15,
-    paddingHorizontal: 30,
     borderTopWidth: 1,
     borderTopColor: '#e0e0e0',
+    paddingVertical: 15,
+    paddingHorizontal: 30,
   },
   navItem: {
     alignItems: 'center',
