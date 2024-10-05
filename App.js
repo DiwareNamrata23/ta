@@ -1,20 +1,72 @@
-// App.js
-import React from 'react';
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import Frontpage from './components/Frontpage';
-import Wishlist from './components/Wishlist';
-import Notification from './components/Notification';
-const Stack = createStackNavigator();
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Ionicons } from '@expo/vector-icons';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
+
+import HomeScreen from './components/HomeScreen'; // Default export
+import WishListScreen from './components/WishListScreen'; // Default export
+import NotificationScreen from './components/NotificationScreen'; // Default export
+
+const Tab = createBottomTabNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Frontpage">
-        <Stack.Screen name="Frontpage" component={Frontpage} />
-        <Stack.Screen name="Wishlist" component={Wishlist} />
-        <Stack.Screen name="Notification" component={Notification} />
-      </Stack.Navigator>
+      <Tab.Navigator
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ focused, color, size }) => {
+            let iconName;
+
+            if (route.name === 'Home') {
+              iconName = focused ? 'home' : 'home-outline';
+              return <Ionicons name={iconName} size={size} color={color} />;
+            } else if (route.name === 'Wishlist') {
+              iconName = focused ? 'heart' : 'heart-outline';
+              return <Ionicons name={iconName} size={size} color={color} />;
+            } else if (route.name === 'Notifications') {
+              iconName = focused ? 'notifications' : 'notifications-outline';
+              return <Ionicons name={iconName} size={size} color={color} />;
+            } else if (route.name === 'exchange') {
+              return <FontAwesome name="exchange" size={size} color={color} />;
+            }
+          },
+          tabBarActiveTintColor: 'tomato',
+          tabBarInactiveTintColor: 'gray',
+          headerBackTitleVisible: 'true',
+        })}
+      >
+        <Tab.Screen 
+          name="Home" 
+          component={HomeScreen} 
+          options={{ headerShown: false, headerBackTitleVisible: true }} 
+        />
+        <Tab.Screen 
+          name="Wishlist" 
+          component={WishListScreen} 
+          options={{ headerShown: false, headerBackTitleVisible: true }} 
+        />
+        <Tab.Screen 
+          name="Notifications" 
+          component={NotificationScreen} 
+          options={{ headerShown: false, headerBackTitleVisible: true }} 
+        />
+        <Tab.Screen 
+          name="exchange" 
+          component={HomeScreen} 
+          options={{ headerShown: false, headerBackTitleVisible: true }} 
+        />
+      </Tab.Navigator>
     </NavigationContainer>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
